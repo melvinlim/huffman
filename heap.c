@@ -23,14 +23,16 @@ HEAP{
 	ITEM *items;
 };
 
-int *randomArray(int k,int n){
+ITEM *randomItems(int k,int maxf,int n){
 	int i;
-	int *p;
-	int *res=malloc(sizeof(int)*n);
+	ITEM *p;
+	ITEM *res=malloc(sizeof(ITEM)*n);
 	p=res;
 	srand(time(0));
 	for(i=0;i<n;i++){
-		*p++ = random()%k;
+		(*p).val	= random()%k;
+		(*p).freq	= random()%maxf;
+		p++;
 	}
 	return res;
 }
@@ -82,17 +84,20 @@ void insert(HEAP *heap,int val,int freq){
 	heap->size++;
 	p[heap->size].val=val;
 	p[heap->size].freq=freq;
+	heapify(heap,PARENT(heap->size));
 }
 
 void printItem(ITEM *item){
-	printf("(%d,%d)",item->val,item->freq);
+	printf("(%02x,%d)",item->val,item->freq);
 }
 
 void printHeap(HEAP *r){
 	int i;
 	ITEM *p=r->items+1;
-	for(i=0;i<r->size;i++){
+	for(i=1;i<=r->size;i++){
+		printf("%d:",i);
 		printItem(p++);
+		printf("\n");
 	}
 }
 
@@ -101,10 +106,17 @@ void print(HEAP *r){
 	printf("\n");
 }
 
+void randomInserts(HEAP *heap,int n){
+	int i;
+	for(i=0;i<n;i++){
+		insert(heap,random()%0xff,random()%20);
+	}
+}
+
 int main(int argc,char *argv[]){
 	uint8_t *buf;
 	int i,n;
-	int *a;
+	ITEM *a;
 
 	HEAP *heap=newHeap(MAXHEAPSIZE);
 	
@@ -113,10 +125,14 @@ int main(int argc,char *argv[]){
 	print(heap);
 	swap(heap->items,1,2);
 	print(heap);
+	swap(heap->items,2,1);
+	print(heap);
+	randomInserts(heap,20);
+	print(heap);
 	n=10;
-	a=randomArray(0xff,n);
+	a=randomItems(0xff,25,n);
 	for(i=0;i<n;i++){
-		printf("%d ",a[i]);
+		printItem(&a[i]);
 	}
 	printf("\n");
 	return 0;
