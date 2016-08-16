@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O0 -I. -g
-DEPS = heap.h
-OBJ = heap.o test.o
+DEPS = heap.h stack.h
+OBJ = heap.o stack.o test.o
 TARGS = test
 
 all: $(TARGS)

@@ -5,6 +5,7 @@
 #include<strings.h>
 
 #include<heap.h>
+#include<stack.h>
 
 ITEM *randomItems(int k,int maxf,int n){
 	int i;
@@ -100,5 +101,16 @@ int main(int argc,char *argv[]){
 	printNode(node);
 	printEdges(node);
 //	print(heap);
+/*
+	i=0;
+	STACK *s=newStack();
+	while(i<10){
+		push(s,i++);
+	}
+	i=1;
+	while(i=pop(s)){
+		printf("%d\n",i);
+	}
+*/
 	return 0;
 }

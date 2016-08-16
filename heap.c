@@ -3,7 +3,9 @@
 #include<fcntl.h>
 #include<stdint.h>
 #include<strings.h>
+
 #include<heap.h>
+#include<stack.h>
 
 ITEM *newItem(ITEM *a,ITEM *b,NODE *node){
 	ITEM *c=malloc(sizeof(ITEM));
