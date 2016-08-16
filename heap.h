@@ -8,6 +8,7 @@
 
 #define HEAP struct Heap
 #define ITEM struct Item
+#define NODE struct Node
 
 #define PARENT(x) (x/2)
 #define LEFT(x) (x*2)
@@ -23,6 +24,13 @@ HEAP{
 	ITEM *items;
 };
 
+NODE{
+	NODE *parent;
+	NODE *left;
+	NODE *right;
+	ITEM *item;
+};
+
 HEAP *newHeap(int n);
 void swap(ITEM *a,int x,int y);
 void heapify(HEAP *heap,int pos);
@@ -32,3 +40,8 @@ void printHeap(HEAP *r);
 void print(HEAP *r);
 ITEM *removeMin(HEAP *heap);
 void heapDown(HEAP *heap,int pos);
+
+NODE *createNode();
+NODE *newTree();
+void printTree(NODE *r);
+void printNode(NODE *r);

@@ -3,25 +3,42 @@
 #include<fcntl.h>
 #include<stdint.h>
 #include<strings.h>
+#include<heap.h>
 
-#define MAXHEAPSIZE 512
+NODE *createNode(){
+	NODE *node=malloc(sizeof(NODE));
+	node->parent=0;
+	node->left=0;
+	node->right=0;
+	node->item=0;
+	return node;
+}
 
-#define HEAP struct Heap
-#define ITEM struct Item
+/*
+	NODE *node=createNode();
+	ITEM *item=malloc(sizeof(ITEM));
+	item->val=val;
+	item->freq=freq;
+	node->item=item;
+	return node;
+*/
 
-#define PARENT(x) (x/2)
-#define LEFT(x) (x*2)
-#define RIGHT(x) (x*2+1)
+NODE *newTree(){
+	NODE *ret=createNode();
+	return ret;
+}
 
-ITEM{
-	int val;
-	int freq;
-};
+void printTree(NODE *r){	
+	if(r==0)	return;
+	printTree(r->left);
+	printItem(r->item);
+	printTree(r->right);
+}
 
-HEAP{
-	int size;
-	ITEM *items;
-};
+void printNode(NODE *r){
+	printTree(r);
+	printf("\n");
+}
 
 HEAP *newHeap(int n){
 	HEAP *heap=malloc(sizeof(HEAP));
@@ -30,7 +47,7 @@ HEAP *newHeap(int n){
 	return heap;
 }
 
-swap(ITEM *a,int x,int y){
+void swap(ITEM *a,int x,int y){
 	ITEM tmp;
 	tmp=a[x];
 	a[x]=a[y];
