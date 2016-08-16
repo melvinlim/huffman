@@ -99,8 +99,9 @@ int main(int argc,char *argv[]){
 //		print(heap);
 	}
 	printNode(node);
-	printEdges(node);
+//	printEdges(node);
 //	print(heap);
+	printCodes(node);
 /*
 	i=0;
 	STACK *s=newStack();

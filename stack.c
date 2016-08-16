@@ -2,6 +2,7 @@
 STACK *newStack(){
 	STACK *s=malloc(sizeof(STACK));
 	s->items=malloc(sizeof(SITEM)*MAXSTACKSIZE);
+	bzero(s->items,MAXSTACKSIZE*sizeof(SITEM));
 	s->size=0;
 	return s;
 }
@@ -17,4 +18,11 @@ SITEM pop(STACK *s){
 }
 SITEM top(STACK *s){
 	return s->items[s->size];
+}
+void printStack(STACK *s){
+	int i=s->size-1;
+	for(i;i>0;i--){
+		printf("%c",s->items[i]);
+	}
+	printf("\n");
 }

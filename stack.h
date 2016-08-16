@@ -14,5 +14,6 @@ STACK{
 void push(STACK *s,SITEM item);
 SITEM pop(STACK *s);
 SITEM top(STACK *s);
+void printStack(STACK *s);
 
 #endif

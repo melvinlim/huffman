@@ -4,6 +4,8 @@
 #include<stdint.h>
 #include<strings.h>
 
+#include<stack.h>
+
 #define MAXHEAPSIZE 512
 
 #define HEAP struct Heap
@@ -50,3 +52,6 @@ NODE *newTree(ITEM *a,ITEM *b);
 void printTree(NODE *r);
 void printNode(NODE *r);
 void printEdges(NODE *r);
+
+void printCodes(NODE *r);
+void printEdge(STACK *s,NODE *r);

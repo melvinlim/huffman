@@ -5,7 +5,6 @@
 #include<strings.h>
 
 #include<heap.h>
-#include<stack.h>
 
 ITEM *newItem(ITEM *a,ITEM *b,NODE *node){
 	ITEM *c=malloc(sizeof(ITEM));
@@ -54,6 +53,28 @@ void printNode(NODE *r){
 	printf("tree:\n");
 	printTree(r);
 	printf("\n");
+}
+
+void printEdge(STACK *s,NODE *r){
+	if(r->left){
+		push(s,'L');
+		printEdge(s,r->left);
+	}else{
+		printStack(s);
+	}
+	if(r->right){
+		push(s,'R');
+		printEdge(s,r->right);
+	}
+	pop(s);
+}
+
+void printCodes(NODE *r){
+	if(r==0)	return;
+	STACK *s=newStack();
+	printEdge(s,r);
+	free(s->items);
+	free(s);
 }
 
 void printEdges(NODE *r){
