@@ -49,3 +49,4 @@ NODE *createNode(ITEM *a);
 NODE *newTree(ITEM *a,ITEM *b);
 void printTree(NODE *r);
 void printNode(NODE *r);
+void printEdges(NODE *r);

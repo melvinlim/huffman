@@ -54,6 +54,22 @@ void printNode(NODE *r){
 	printf("\n");
 }
 
+void printEdges(NODE *r){
+	if(r==0)	return;
+	if(r->left){
+		printf("L");
+		printEdges(r->left);
+	}else{
+		printf("\n");
+	}
+	if(r->right){
+		printf("R");
+		printEdges(r->right);
+	}else{
+		printf("\n");
+	}
+}
+
 HEAP *newHeap(int n){
 	HEAP *heap=malloc(sizeof(HEAP));
 	heap->items=malloc(sizeof(ITEM)*(n+1));
@@ -168,7 +184,7 @@ void printHeap(HEAP *r){
 	ITEM *p=r->items+1;
 	for(i=1;i<=r->size;i++){
 		printf("%d:",i);
-printNode(p->node);
+//printNode(p->node);
 		printItem(p++);
 		printf("\n");
 	}

@@ -97,6 +97,8 @@ int main(int argc,char *argv[]){
 //		printNode(node);
 //		print(heap);
 	}
-	print(heap);
+	printNode(node);
+	printEdges(node);
+//	print(heap);
 	return 0;
 }
