@@ -17,6 +17,7 @@
 ITEM{
 	int val;
 	int freq;
+	NODE *node;
 };
 
 HEAP{
