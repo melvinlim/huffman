@@ -30,3 +30,5 @@ void insert(HEAP *heap,int val,int freq);
 void printItem(ITEM *item);
 void printHeap(HEAP *r);
 void print(HEAP *r);
+ITEM *removeMin(HEAP *heap);
+void heapDown(HEAP *heap,int pos);

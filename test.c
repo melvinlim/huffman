@@ -74,5 +74,12 @@ int main(int argc,char *argv[]){
 		}
 	}
 	printf("\n");
+	print(heap);
+	for(i=0;i<=0xff;i++){
+		a=removeMin(heap);
+		printItem(a);
+		printf("\n");
+//	print(heap);
+	}
 	return 0;
 }

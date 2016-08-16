@@ -65,6 +65,51 @@ void heapify(HEAP *heap,int pos){
 	heapify(heap,PARENT(pos));
 }
 
+void heapDown(HEAP *heap,int pos){
+	int t;
+	int size;
+	ITEM *a=heap->items;
+	size=heap->size;
+	if(LEFT(pos)>size){
+		return;
+	}
+	if(RIGHT(pos)>size){
+		if(a[LEFT(pos)].freq<=a[pos].freq){
+			swap(a,pos,LEFT(pos));
+			heapDown(heap,LEFT(pos));
+		}
+		return;
+	}
+	if(a[LEFT(pos)].freq<=a[RIGHT(pos)].freq){
+		if(a[LEFT(pos)].freq<=a[pos].freq){
+			swap(a,pos,LEFT(pos));
+			heapDown(heap,LEFT(pos));
+		}else{
+			return;
+		}
+	}else{
+		if(a[RIGHT(pos)].freq<=a[pos].freq){
+			swap(a,pos,RIGHT(pos));
+			heapDown(heap,RIGHT(pos));
+		}else{
+			return;
+		}
+	}
+}
+
+ITEM *removeMin(HEAP *heap){
+	int size;
+	ITEM *minItem=malloc(sizeof(ITEM));
+	*minItem=heap->items[1];
+	if(heap->size==0)	return 0;
+	swap(heap->items,heap->size,1);
+	heap->size--;
+	size=heap->size;
+	if(size==0)	return minItem;
+	heapDown(heap,1);
+	return minItem;
+}
+
 void insert(HEAP *heap,int val,int freq){
 	ITEM *p=heap->items;
 	heap->size++;
