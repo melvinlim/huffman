@@ -7,6 +7,26 @@
 #include<heap.h>
 #include<stack.h>
 
+int *randomArray(int k,int n){
+	int i;
+	int *p;
+	int *res=malloc(sizeof(int)*n);
+	p=res;
+	srand(time(0));
+	for(i=0;i<n;i++){
+		*p++ = random()%k;
+	}
+	return res;
+}
+
+void printArray(int *a,int n){
+	int i;
+	for(i=0;i<n;i++){
+		printf("%d ",*a++);
+	}
+	printf("\n");
+}
+
 ITEM *randomItems(int k,int maxf,int n){
 	int i;
 	ITEM *p;
@@ -120,5 +140,12 @@ int main(int argc,char *argv[]){
 			printf("%i:%s\n",i,cTable[i]);
 	}
 	printf("\n");
+	int *tmpA;
+	tmpA=randomArray(0x100,10);
+	printArray(tmpA,10);
+	tmpA=encodeArray(cTable,tmpA,10);
+	for(i=0;i<tmpA[0]/32;i++){
+		printf("%x\n",tmpA[i]);
+	}
 	return 0;
 }

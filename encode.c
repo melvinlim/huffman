@@ -63,3 +63,30 @@ void printCodes(NODE *r){
 	free(s->items);
 	free(s);
 }
+
+uint32_t *encodeArray(char **table,int *a,int n){
+	uint32_t *cipherText=malloc(4*4096);
+	char *str;
+	int j,k,t;
+	int i=0;
+	t=0;
+	bzero(cipherText,(4*4096));
+	for(j=0;j<n;j++){
+		str=table[a[j]];
+		printf("%s\n",str);
+		for(k=0;k<strlen(str);k++){
+			printf("%c",str[k]);
+			if(t%32 == 0){
+				i++;
+			}
+			cipherText[i]=cipherText[i]<<1;
+			if(str[k]=='R'){
+				cipherText[i]+=1;
+			}
+			t++;
+		}
+		printf("\n");
+	}
+	cipherText[0]=t;
+	return cipherText;
+}
