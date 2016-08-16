@@ -42,7 +42,10 @@ void print(HEAP *r);
 ITEM *removeMin(HEAP *heap);
 void heapDown(HEAP *heap,int pos);
 
-NODE *createNode();
-NODE *newTree();
+void insertItem(HEAP *heap,ITEM *item);
+ITEM *newItem(ITEM *a,ITEM *b,NODE *node);
+
+NODE *createNode(ITEM *a);
+NODE *newTree(ITEM *a,ITEM *b);
 void printTree(NODE *r);
 void printNode(NODE *r);

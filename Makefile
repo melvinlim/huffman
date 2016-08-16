@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O3 -I.
+CFLAGS=-O0 -I. -g
 DEPS = heap.h
 OBJ = heap.o test.o
 TARGS = test

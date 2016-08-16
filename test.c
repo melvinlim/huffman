@@ -31,7 +31,8 @@ int main(int argc,char *argv[]){
 	uint8_t buf;
 	uint32_t table[0xff+1];
 	int i,n;
-	ITEM *a;
+	ITEM *a,*b,*c;
+	NODE *node=0;
 
 	HEAP *heap=newHeap(MAXHEAPSIZE);
 /*	
@@ -83,10 +84,19 @@ int main(int argc,char *argv[]){
 //	print(heap);
 	}
 */
-	while(heap->size>0){
+	i=0;
+	while(heap->size>=2){
 		a=removeMin(heap);
-		printItem(a);
-		printf("\n");
+		b=removeMin(heap);
+		node=newTree(a,b);
+		c=newItem(a,b,node);
+		insertItem(heap,c);
+//		free(a);
+//		free(b);
+//		printf("[%d]\n",i++);
+//		printNode(node);
+//		print(heap);
 	}
+	print(heap);
 	return 0;
 }

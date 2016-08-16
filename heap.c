@@ -5,37 +5,51 @@
 #include<strings.h>
 #include<heap.h>
 
-NODE *createNode(){
+ITEM *newItem(ITEM *a,ITEM *b,NODE *node){
+	ITEM *c=malloc(sizeof(ITEM));
+	c->freq=a->freq+b->freq;
+	c->val=a->val+b->val;
+	c->node=node;
+	return c;
+}
+
+NODE *createNode(ITEM *a){
 	NODE *node=malloc(sizeof(NODE));
 	node->parent=0;
 	node->left=0;
 	node->right=0;
-	node->item=0;
+	node->item=a;
 	return node;
 }
 
-/*
-	NODE *node=createNode();
-	ITEM *item=malloc(sizeof(ITEM));
-	item->val=val;
-	item->freq=freq;
-	node->item=item;
-	return node;
-*/
-
-NODE *newTree(){
-	NODE *ret=createNode();
-	return ret;
+NODE *newTree(ITEM *a,ITEM *b){
+	NODE *tree=createNode(0);
+	if(a->node==0){
+		tree->left=createNode(a);
+	}else{
+		tree->left=a->node;
+	}
+	if(b->node==0){
+		tree->right=createNode(b);
+	}else{
+		tree->right=b->node;
+	}
+	return tree;
 }
 
 void printTree(NODE *r){	
 	if(r==0)	return;
 	printTree(r->left);
-	printItem(r->item);
+	if(r->item){
+		printf("node->item:");
+		printItem(r->item);
+		printf("\n");
+	}
 	printTree(r->right);
 }
 
 void printNode(NODE *r){
+	printf("tree:\n");
 	printTree(r);
 	printf("\n");
 }
@@ -127,11 +141,21 @@ ITEM *removeMin(HEAP *heap){
 	return minItem;
 }
 
+void insertItem(HEAP *heap,ITEM *item){
+	ITEM *p=heap->items;
+	heap->size++;
+	p[heap->size].val=item->val;
+	p[heap->size].freq=item->freq;
+	p[heap->size].node=item->node;
+	heapify(heap,PARENT(heap->size));
+}
+
 void insert(HEAP *heap,int val,int freq){
 	ITEM *p=heap->items;
 	heap->size++;
 	p[heap->size].val=val;
 	p[heap->size].freq=freq;
+	p[heap->size].node=0;
 	heapify(heap,PARENT(heap->size));
 }
 
@@ -144,6 +168,7 @@ void printHeap(HEAP *r){
 	ITEM *p=r->items+1;
 	for(i=1;i<=r->size;i++){
 		printf("%d:",i);
+printNode(p->node);
 		printItem(p++);
 		printf("\n");
 	}
