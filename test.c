@@ -101,7 +101,7 @@ int main(int argc,char *argv[]){
 	printNode(node);
 //	printEdges(node);
 //	print(heap);
-	printCodes(node);
+//	printCodes(node);
 /*
 	i=0;
 	STACK *s=newStack();
@@ -113,5 +113,12 @@ int main(int argc,char *argv[]){
 		printf("%d\n",i);
 	}
 */
+	char **cTable;
+	cTable=getCodes(node);
+	for(i=0;i<=0xff;i++){
+		if(cTable[i])
+			printf("%i:%s\n",i,cTable[i]);
+	}
+	printf("\n");
 	return 0;
 }

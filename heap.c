@@ -1,9 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<fcntl.h>
-#include<stdint.h>
-#include<strings.h>
-
 #include<heap.h>
 
 ITEM *newItem(ITEM *a,ITEM *b,NODE *node){
@@ -54,12 +48,13 @@ void printNode(NODE *r){
 	printTree(r);
 	printf("\n");
 }
-
+/*
 void printEdge(STACK *s,NODE *r){
 	if(r->left){
 		push(s,'L');
 		printEdge(s,r->left);
 	}else{
+		printItem(r->item);
 		printStack(s);
 	}
 	if(r->right){
@@ -76,7 +71,7 @@ void printCodes(NODE *r){
 	free(s->items);
 	free(s);
 }
-
+*/
 void printEdges(NODE *r){
 	if(r==0)	return;
 	if(r->left){

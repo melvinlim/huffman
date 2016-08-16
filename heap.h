@@ -53,5 +53,5 @@ void printTree(NODE *r);
 void printNode(NODE *r);
 void printEdges(NODE *r);
 
-void printCodes(NODE *r);
-void printEdge(STACK *s,NODE *r);
+//void printCodes(NODE *r);
+//void printEdge(STACK *s,NODE *r);
