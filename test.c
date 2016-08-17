@@ -140,12 +140,19 @@ int main(int argc,char *argv[]){
 			printf("%i:%s\n",i,cTable[i]);
 	}
 	printf("\n");
-	int *tmpA;
+	uint32_t *tmpA;
 	tmpA=randomArray(0x100,10);
 	printArray(tmpA,10);
+/*
+	tmpA[0]=0;
+	tmpA[1]=244;
+	tmpA[2]=255;
+	printArray(tmpA,3);
+*/
 	tmpA=encodeArray(cTable,tmpA,10);
-	for(i=0;i<tmpA[0]/32;i++){
-		printf("%x\n",tmpA[i]);
+	for(i=1;i<tmpA[0]/32+2;i++){
+		printf("tmpA[%d]=0x%x\n",i,tmpA[i]);
 	}
+	decodeArray(node,tmpA);
 	return 0;
 }

@@ -64,7 +64,7 @@ void printCodes(NODE *r){
 	free(s);
 }
 
-uint32_t *encodeArray(char **table,int *a,int n){
+uint32_t *encodeArray(char **table,uint32_t *a,int n){
 	uint32_t *cipherText=malloc(4*4096);
 	char *str;
 	int j,k,t;
@@ -73,8 +73,28 @@ uint32_t *encodeArray(char **table,int *a,int n){
 	bzero(cipherText,(4*4096));
 	for(j=0;j<n;j++){
 		str=table[a[j]];
-		printf("%s\n",str);
 		for(k=0;k<strlen(str);k++){
+//			printf("%c",str[k]);
+			if(t%32 == 0){
+				i++;
+			}
+			if(str[k]=='R'){
+				cipherText[i]=cipherText[i]+(1<<(t%32));
+			}
+//printf("\n%d:%x\n",t,cipherText[i]);
+			t++;
+		}
+		printf("\n");
+	}
+	cipherText[0]=t;
+	return cipherText;
+}
+/*
+	for(j=n-1;j>=0;j--){
+		str=table[a[j]];
+		printf("%s\n",str);
+		//for(k=0;k<strlen(str);k++){
+		for(k=strlen(str)-1;k>=0;k--){
 			printf("%c",str[k]);
 			if(t%32 == 0){
 				i++;
@@ -83,10 +103,44 @@ uint32_t *encodeArray(char **table,int *a,int n){
 			if(str[k]=='R'){
 				cipherText[i]+=1;
 			}
+printf("\n%d:%x\n",t,cipherText[i]);
 			t++;
 		}
 		printf("\n");
 	}
 	cipherText[0]=t;
 	return cipherText;
+}
+*/
+
+void decodeArray(NODE *r,uint32_t *a){
+	NODE *p=r;
+	int i,j=0;
+	uint32_t tmp;
+	int bits=a[0];
+	for(i=0;i<bits;i++){
+		if(i%32==0){
+			j++;
+			tmp=a[j];
+		}
+		if(p->left==0){
+			//ans[k++]=p->item.val;
+			//printf("%d ",p->item->val);
+			printf("\n[%d]\n",p->item->val);
+			p=r;
+		}else if(p->right==0){
+//printf("error\n");
+		}
+		if((tmp&1)==0){
+//printf("l");
+			p=p->left;
+		}else{
+//printf("r");
+			p=p->right;
+		}
+		tmp=tmp>>1;
+	}
+	printf("\n[%d]\n",p->item->val);
+	//printf("%d ",p->item->val);
+	printf("\n");
 }
