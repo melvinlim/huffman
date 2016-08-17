@@ -149,10 +149,18 @@ int main(int argc,char *argv[]){
 	tmpA[2]=255;
 	printArray(tmpA,3);
 */
+/*
 	tmpA=encodeArray(cTable,tmpA,10);
 	for(i=1;i<tmpA[0]/32+2;i++){
 		printf("tmpA[%d]=0x%x\n",i,tmpA[i]);
 	}
 	decodeArray(node,tmpA);
+*/
+	//encodeFile("/bin/ls\0",0);
+	free(node);
+	node=encodeFile(node,"Makefile",0);
+printf("node=%x\n",node);
+	decodeFile(node,"output-ciphertext",0);
+
 	return 0;
 }
