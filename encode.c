@@ -113,11 +113,14 @@ printf("\n%d:%x\n",t,cipherText[i]);
 }
 */
 
-void decodeArray(NODE *r,uint32_t *a){
+uint8_t *decodeArray(NODE *r,uint32_t *a){
+	uint8_t *result;
 	NODE *p=r;
 	int i,j=0;
+	int k=0;
 	uint32_t tmp;
 	uint32_t bits=a[0];
+	result=malloc(bits/8);
 printf("bits=%x\n",bits);
 	for(i=0;i<bits;i++){
 		if(i%32==0){
@@ -125,9 +128,9 @@ printf("bits=%x\n",bits);
 			tmp=a[j];
 		}
 		if(p->left==0){
-			//ans[k++]=p->item.val;
 			//printf("%d ",p->item->val);
 			printf("[%d]\n",p->item->val);
+			result[k++]=p->item->val;
 			p=r;
 		}else if(p->right==0){
 //printf("error\n");
@@ -144,11 +147,13 @@ printf("bits=%x\n",bits);
 	printf("[%d]\n",p->item->val);
 	//printf("%d ",p->item->val);
 	printf("\n");
+	result[k]=p->item->val;
+	return result;
 }
 
 void decodeFile(NODE *node,char *input,char *output){
 	uint32_t *p;
-	uint32_t n;
+	uint32_t nBits;
 	int fd;
 	int fo;
 	uint32_t *array;
@@ -160,20 +165,36 @@ void decodeFile(NODE *node,char *input,char *output){
 		printf("unable to open file: %s\n",input);
 		return;
 	}
-	read(fd,&n,4);
-printf("n=%lx\n",n);
-	array=malloc(n*4);
-	array[0]=n;
+	read(fd,&nBits,4);
+printf("nBits=%lx\n",nBits);
+	array=malloc(nBits*4);
+	array[0]=nBits;
 	p=array+1;
 	while(read(fd,p,4)>0){
 		p++;
 	}
-int i;
-for(i=0;i<n;i++){
-	if(array[i])
-		printf("%x\n",array[i]);
-}
-	decodeArray(node,array);
+
+	int i;
+	for(i=0;i<nBits;i++){
+		if(array[i])
+			printf("%x\n",array[i]);
+	}
+
+	close(fd);	
+
+	fo=creat(output,O_WRONLY);
+	if(fo<0){
+		printf("unable to open file: %s\n",output);
+		return;
+	}
+	uint8_t *a8;
+	a8=decodeArray(node,array);
+	for(i=0;i<nBits/5;i++){
+		printf("%02x ",a8[i]);
+		write(fo,&(a8[i]),1);
+	}
+	printf("\n");
+	close(fo);
 }
 
 NODE *encodeFile(NODE *node,char *input,char *output){
